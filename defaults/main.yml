@@ -1,0 +1,3 @@
+---
+# Set java_packages if you would like to use a different version than the defaults defined in vars/Debian.yml and vars/RedHat.yml.
+# java_packages: []
