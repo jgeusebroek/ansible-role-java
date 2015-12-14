@@ -1,6 +1,6 @@
 ---
-- name: Install Java
+- name: Install Java | Rhel
   yum:
-    name="{{ item }}"
-    state=installed
+    name: "{{ item }}"
+    state: installed
   with_items: java_packages

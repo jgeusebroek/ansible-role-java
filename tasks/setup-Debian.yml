@@ -1,11 +1,11 @@
 ---
-- name: Update apt cache
+- name: Update apt cache | Debian
   apt:
-    update_cache=yes
-    cache_valid_time=86400
+    update_cache: yes
+    cache_valid_time: 86400
 
-- name: Install Java
+- name: Install Java | Debian
   apt:
-    name={{ item }}
-    state=installed
+    name: '{{ item }}'
+    state: installed
   with_items: java_packages
