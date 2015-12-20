@@ -1,5 +1,5 @@
 ---
-- name: Install Java | Rhel
+- name: Install Java | RedHat
   yum:
     name: "{{ item }}"
     state: installed
