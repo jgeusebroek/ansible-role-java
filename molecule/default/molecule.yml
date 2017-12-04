@@ -1,0 +1,51 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+  enabled: False
+  options:
+    config-file: ../../../resources/.yamllint
+platforms:
+    - name: centos7
+      image: jgeusebroek/centos7-molecule
+      groups:
+        - redhat
+    - name: debian8
+      image: jgeusebroek/debian8-molecule
+      groups:
+        - debian
+    - name: debian9
+      image: jgeusebroek/debian9-molecule
+      groups:
+        - debian
+    - name: ubuntu1604
+      image: jgeusebroek/ubuntu1604-molecule
+      groups:
+        - ubuntu
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    host_vars:
+      centos7:
+        java_packages:
+          - java-1.7.0-openjdk
+      debian8:
+        java_packages:
+          - openjdk-7-jre
+      debian9:
+        java_packages:
+          - openjdk-8-jre
+      ubuntu1604:
+        java_packages:
+          - openjdk-9-jre
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
