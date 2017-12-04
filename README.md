@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/jgeusebroek/ansible-role-java.svg?branch=master)](https://travis-ci.org/jgeusebroek/ansible-role-java)
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-jgeusebroek.java-blue.svg)](https://galaxy.ansible.com/jgeusebroek/java)
+
 # Ansible role: Java
 
 An Ansible Role that installs Java on RedHat/CentOS or Debian/Ubuntu.
