@@ -1,6 +1,5 @@
 ---
 - name: Install Java | RedHat
-  yum:
-    name: '{{ item }}'
-    state: installed
-  with_items: '{{ java_packages }}'
+  package:
+    name: '{{ java_packages }}'
+    state: present

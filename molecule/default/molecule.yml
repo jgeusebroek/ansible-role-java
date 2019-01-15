@@ -1,34 +1,25 @@
 ---
-dependency:
-  name: galaxy
 driver:
   name: docker
 lint:
   name: yamllint
   enabled: False
   options:
-    config-file: ../../../resources/.yamllint
+    config-file: travis/default/yamllint.yml
 platforms:
-    - name: centos7
-      image: jgeusebroek/centos7-molecule
-      groups:
-        - redhat
-    - name: debian8
-      image: jgeusebroek/debian8-molecule
-      groups:
-        - debian
-    - name: debian9
-      image: jgeusebroek/debian9-molecule
-      groups:
-        - debian
-    - name: ubuntu1604
-      image: jgeusebroek/ubuntu1604-molecule
-      groups:
-        - ubuntu
+  - name: "${MOLECULE_DISTRO:-centos7}"
+    image: "jgeusebroek/${MOLECULE_DISTRO:-centos7}-molecule:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
   inventory:
     host_vars:
       centos7:
@@ -43,6 +34,9 @@ provisioner:
       ubuntu1604:
         java_packages:
           - openjdk-9-jre
+      ubuntu1804:
+        java_packages:
+          - openjdk-11-jre
 scenario:
   name: default
 verifier:
