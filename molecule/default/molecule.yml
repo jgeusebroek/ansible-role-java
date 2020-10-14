@@ -1,14 +1,14 @@
 ---
 driver:
   name: docker
-lint:
-  name: yamllint
-  enabled: False
-  options:
-    config-file: travis/default/yamllint.yml
+lint: |
+  set -e
+  yamllint -c molecule/default/yamllint.yml .
+  ansible-lint
+  flake8
 platforms:
-  - name: "${MOLECULE_DISTRO:-centos7}"
-    image: "jgeusebroek/${MOLECULE_DISTRO:-centos7}-molecule:latest"
+  - name: "${MOLECULE_DISTRO:-centos8}"
+    image: "jgeusebroek/${MOLECULE_DISTRO:-centos8}-molecule:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -16,8 +16,6 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
   inventory:
@@ -25,21 +23,25 @@ provisioner:
       centos7:
         java_packages:
           - java-1.7.0-openjdk
+      centos8:
+        java_packages:
+          - java-1.8.0-openjdk
       debian8:
         java_packages:
           - openjdk-7-jre
       debian9:
         java_packages:
           - openjdk-8-jre
-      ubuntu1604:
+      debian10:
         java_packages:
-          - openjdk-9-jre
+          - openjdk-11-jre
       ubuntu1804:
+        java_packages:
+          - openjdk-11-jre
+      ubuntu2004:
         java_packages:
           - openjdk-11-jre
 scenario:
   name: default
 verifier:
   name: testinfra
-  lint:
-    name: flake8
