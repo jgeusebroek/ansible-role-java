@@ -6,7 +6,8 @@
     - role: jgeusebroek.java
 
   pre_tasks:
-  - name: Create man directory, not available in Docker images
-    file:
-      path: /usr/share/man/man1
-      state: directory
+    - name: Create man directory, not available in Docker images
+      file:
+        path: /usr/share/man/man1
+        state: directory
+        mode: 0755
