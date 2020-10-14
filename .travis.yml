@@ -10,7 +10,7 @@ env:
     - MOLECULE_DISTRO: debian9
     - MOLECULE_DISTRO: debian10
     - MOLECULE_DISTRO: centos7
-    - MOLECULE_DISTRO: centos10
+    - MOLECULE_DISTRO: centos8
 
 # Cache Ansible and Molecule to speed things up
 cache:
